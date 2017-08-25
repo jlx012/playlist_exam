@@ -1,0 +1,27 @@
+<div class="col-7">
+    <a href="/songs">Dashboard</a>
+    <a href="/logout" data-method="delete">Logout</a>
+
+    <h2><%= @user.first_name.titleize %> <%= @user.last_name.titleize %>'s Playlist</h2>
+
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>Times Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @all_songs.each do |song| %>
+                <% unless @all_playlists.include? @playlist_user %>
+                    <tr>
+                        <td><%= song.artist.titleize %></td>
+                        <td><a href="/songs/<%= song.id %>"><%= song.title.titleize %></a></td>
+                        <td><%= song.playlists.count %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+        </tbody>
+    </table>
+</div>

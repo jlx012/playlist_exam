@@ -1,0 +1,42 @@
+<div class="col-6">
+    <h1>Hello, <%= current_user.first_name.titleize %> <%= current_user.last_name.titleize %>!</h1>
+    <a href="users/<%= current_user.id %>">My Playlist</a>
+    <a href="/logout" data-method="delete">Logout</a>
+
+    <h3>All the songs in our hub:</h3>
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>No. of Times Song Has Been Added</th>
+                <th>Add to Playlist</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @all_songs.each do |song| %>
+                <tr>
+                    <td> <%= song.artist.titleize %> </td>
+                    <td><a href="songs/<%= song.id %>"><%= song.title.titleize %></a></td>
+                    <td><%= song.playlists.count %></td>
+                    <td><a href="songs/<%= song.id %>/add"><button>Add</button></a></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <h3>Add a Song:</h3>
+    <div class="col-3">
+        <form action="" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+
+            <label for="name">Title:</label>
+            <input type='text' name="song[title]" class="form-control">
+
+            <label for="price">Artist:</label>
+            <input type="text" name='song[artist]' class='form-control'>
+
+            <button type="submit" class="btn btn-primary">Add Song</button>
+        </form>
+    </div>
+</div>
